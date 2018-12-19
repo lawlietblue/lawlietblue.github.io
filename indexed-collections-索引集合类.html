@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="Indexed Collections - 索引集合类">
+
+
+
+
+  <meta name="keywords" content="js,Array,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="//:Anonymous Note">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1">
+
+
+
+<link rel="canonical" href="http://lawlietcos.com/indexed-collections-索引集合类.html">
+
+
+<meta name="description" content="早晨遇到一个Array.prototype.fill()的坑，决定根据ecma-262梳理一遍数组的方法。 The Array Constructorthe initial value of the Array property of the global object, also creates and initializes a new Array object when called as">
+<meta name="keywords" content="js,Array">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Indexed Collections - 索引集合类">
+<meta property="og:url" content="http://lawlietcos.com/indexed-collections-索引集合类.html">
+<meta property="og:site_name" content="&#x2F;&#x2F;:Anonymous Note">
+<meta property="og:description" content="早晨遇到一个Array.prototype.fill()的坑，决定根据ecma-262梳理一遍数组的方法。 The Array Constructorthe initial value of the Array property of the global object, also creates and initializes a new Array object when called as">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-19T10:46:19.926Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Indexed Collections - 索引集合类">
+<meta name="twitter:description" content="早晨遇到一个Array.prototype.fill()的坑，决定根据ecma-262梳理一遍数组的方法。 The Array Constructorthe initial value of the Array property of the global object, also creates and initializes a new Array object when called as">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+    <title> Indexed Collections - 索引集合类 - //:Anonymous Note </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">//:Anonymous Note</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Indexed Collections - 索引集合类
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 19 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>早晨遇到一个Array.prototype.fill()的坑，决定根据ecma-262梳理一遍数组的方法。</p>
+<h3 id="The-Array-Constructor"><a href="#The-Array-Constructor" class="headerlink" title="The Array Constructor"></a>The Array Constructor</h3><p>the initial value of the Array property of the global object, also creates and initializes a new Array object when called as a function rather than as a constructor. <strong>Thus the function call Array(…) is equivalent to the object creation expression  new Array(…) with the same arguments</strong>.使用Array（）和使用new Array（）是一样的。</p>
+<ul>
+<li>Array()</li>
+<li>Array(len), 这里分成两种情况，如果len是数字，则生成一个长度是len的数组，否则生成一个长度为1的[len];</li>
+<li>Array(…items), 这里需要…items解构出来的个数大于等于2，则返回一个长度为参数数量的结构出来的值的数组；</li>
+</ul>
+<p>以上需要注意到两个函数ArrayCreate(numberOfArgs, proto) 和 CreateDataProperty(array, Pk, itemK)，都是先创建一个数组，然后再赋值。</p>
+<h3 id="Properties-of-the-Array-Constructor"><a href="#Properties-of-the-Array-Constructor" class="headerlink" title="Properties of the Array Constructor"></a>Properties of the Array Constructor</h3><ul>
+<li>Array.from ( items [ , mapfn [ , thisArg ] ] )， item可以是一个可迭代的对象或者类数组，可选参数是两个，如果mapfn不是函数则会报错，thisArg则是this的指向对象</li>
+<li>Array.isArray ( arg )， 主要是考虑的是proxy exotic 对象， 还是要一层层使用IsArray(arg)去判断。</li>
+<li>Array.of ( …items )， 同样是生成一个参数个数的数组，与Array不同之处在于参数为一个整数的时候 Array.of(7) === [7], Array(7) === [empty * 7];</li>
+<li>Array.prototype, 不可以重写也不能被枚举出来</li>
+<li>get Array [ @@species ]， 可以通过get [Symbol.species]来重写</li>
+</ul>
+<h3 id="Properties-of-the-Array-Prototype-Object"><a href="#Properties-of-the-Array-Prototype-Object" class="headerlink" title="Properties of the Array Prototype Object"></a>Properties of the Array Prototype Object</h3><p>has a length property whose initial value is 0 and whose attributes are { [[Writable]]: true, [[Enumerable]]: false, [[Configurable]]: false }.</p>
+<ul>
+<li>Array.prototype.concat ( …arguments )， 返回一个新数组，参数不一定必须要数组</li>
+<li>Array.prototype.constructor， 就是%Array%</li>
+<li>Array.prototype.copyWithin ( target, start [ , end ] )， 需要注意的是 The end argument is optional with the length of the this object as its default value. If target is negative, it is treated as length+target where length is the length of the array. If start is negative, it is treated as length+start. If end is negative, it is treated as length+end. 这里面如果在中间的时候是需要从后往前复制的。</li>
+<li>Array.prototype.entries ( ) 返回键值对，</li>
+<li>Array.prototype.every ( callbackfn [ , thisArg ] ) ， 如果没有提供thisArg,则this是undefined，callbackfn接收的是三个参数，value index ArrayLike;The range of elements processed by every is set before the first call to callbackfn. Elements which are appended to the array after the call to every begins will not be visited by callbackfn. If existing elements of the array are changed, their value as passed to callbackfn will be the value at the time every visits them; elements that are deleted after the call to every begins and before being visited are not visited. every acts like the “for all” quantifier in mathematics. In particular, for an empty array, it returns true.如果是之后增加的数据，那么不会被访问，如果是改变，那么访问的就是改变的，如果是删除，那么就看不见。</li>
+<li>Array.prototype.fill ( value [ , start [ , end ] ] ) 注意是用一个值填写入其中，注意对象的引用问题</li>
+<li>Array.prototype.filter ( callbackfn [ , thisArg ] ) 需要注意一点的是filter does not directly mutate the object on which it is called but the object may be mutated by the calls to callbackfn.返回是true的新数组</li>
+<li>Array.prototype.find ( predicate [ , thisArg ] ) 找到第一个符合条件的元素，如果没有则返回undefined;</li>
+<li>Array.prototype.findIndex ( predicate [ , thisArg ] ) 找到第一个符合条件的index，否则返回-1</li>
+<li>Array.prototype.forEach ( callbackfn [ , thisArg ] ) 没有返回值，返回的永远都是undefined</li>
+<li>Array.prototype.includes ( searchElement [ , fromIndex ] ) The optional second argument fromIndex defaults to 0 (i.e. the whole array is searched). If it is greater than or equal to the length of the array, false is returned, i.e. the array will not be searched. <strong>If it is negative, it is used as the offset from the end of the array to compute fromIndex. If the computed index is less than 0, the whole array will be searched.</strong></li>
+<li>Array.prototype.indexOf ( searchElement [ , fromIndex ] ) 与上面的方法不同的是使用的 Strict Equality Comparison</li>
+<li>Array.prototype.join ( separator )， The elements of the array are converted to Strings, and these Strings are then concatenated, separated by occurrences of the separator. If no separator is provided, a single comma is used as the separator. 一个逗号是默认的，返回的是一个字符串</li>
+<li>Array.prototype.keys ( )， 返回是所有keys</li>
+<li>Array.prototype.lastIndexOf ( searchElement [ , fromIndex ] )</li>
+<li>Array.prototype.map ( callbackfn [ , thisArg ] )， 返回一个新数组</li>
+<li>Array.prototype.pop ( ) 删除数组的最后一个元素并且返回   改变数组</li>
+<li>Array.prototype.push ( …items ) 在末尾添加数组  并且返回的是增加后数组的长度</li>
+<li>Array.prototype.reduce ( callbackfn [ , initialValue ] )， callbackfn is called with four arguments: the previousValue (value from the previous call to callbackfn), the currentValue (value of the current element), the currentIndex, and the object being traversed. The first time that callback is called, the previousValue and currentValue can be one of two values. If an initialValue was supplied in the call to  reduce, then previousValue will be equal to initialValue and currentValue will be equal to the first value in the array. If no initialValue was supplied, then previousValue will be equal to the first value in the array and currentValue will be equal to the second. It is a TypeError if the array contains no elements and initialValue is not provided.接收四个参数，其中会发生错误的话，是element和initialValue都没有提供， 返回的是计算过的值</li>
+<li>Array.prototype.reduceRight ( callbackfn [ , initialValue ] ) 上面的反过来</li>
+<li>Array.prototype.reverse ( ) 注意的是取的是 middle的值然后开始换</li>
+<li>Array.prototype.shift ( ) 删除第一个元素并返回</li>
+<li>Array.prototype.slice ( start, end ) 返回的是一个新数组</li>
+<li>Array.prototype.some ( callbackfn [ , thisArg ] ) 与every呼应</li>
+<li>Array.prototype.sort ( comparefn ) comparefn接收两个参数</li>
+<li>Array.prototype.splice ( start, deleteCount, …items )也是直接修改数组，deleteCount是删除的个数， item是要添加的元素</li>
+<li>Array.prototype.toLocaleString ( [ reserved1 [ , reserved2 ] ] )</li>
+<li>Array.prototype.toString ( )</li>
+<li>Array.prototype.unshift ( …items ) 开头添加元素并返回长度</li>
+<li>Array.prototype.values ( )</li>
+<li>Array.prototype [ @@iterator ] ( ) ，he initial value of the @@iterator property is the same function object as the initial value of the Array.prototype.values property.</li>
+<li>Array.prototype [ @@unscopables ]， This property has the attributes { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: true }.</li>
+</ul>
+<h3 id="Properties-of-Array-Instances"><a href="#Properties-of-Array-Instances" class="headerlink" title="Properties of Array Instances"></a>Properties of Array Instances</h3><ul>
+<li>length</li>
+</ul>
+<p>###　Array Iterator Objects</p>
+<p>An Array Iterator is an object, that represents a specific iteration over some specific Array instance object. There is not a named constructor for Array Iterator objects. Instead, Array iterator objects are created by calling certain methods of Array instance objects.</p>
+<ul>
+<li>CreateArrayIterator ( array, kind )</li>
+<li>The %ArrayIteratorPrototype% Object<ul>
+<li>%ArrayIteratorPrototype%.next ( )</li>
+<li>%ArrayIteratorPrototype% [ @@toStringTag ]</li>
+</ul>
+</li>
+<li>Properties of Array Iterator Instances<ul>
+<li>[[IteratedObject]] The object whose array elements are being iterated.</li>
+<li>[[ArrayIteratorNextIndex]] The integer index of the next integer index to be examined by this iteration.</li>
+<li>[[ArrayIterationKind]] A String value that identifies what is returned for each element of the iteration. The possible values are: “key”, “value”, “key+value”.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>参考<a href="http://www.ecma-international.org/ecma-262/#sec-indexed-collections" target="_blank" rel="noopener">ecma-262/#sec-indexed-collections</a></p>
+</blockquote>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/js/">js</a>
+          
+            <a href="/tags/Array/">Array</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/js-algorithm.html">
+        <span class="next-text nav-default">js-algorithm</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+    2018
+    <span class="footer-author">lawliet & nier.</span>
+    <span class="power-by">
+        We can Fly.
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1"></script>
+
+  </body>
+</html>

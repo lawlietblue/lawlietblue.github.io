@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="正则表达式">
+
+
+
+
+  <meta name="keywords" content="js,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="//:Anonymous Note">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1">
+
+
+
+<link rel="canonical" href="http://lawlietcos.com/正则表达式.html">
+
+
+<meta name="description" content="补上正则表达式这一块拼图。 RegExp类 表示 正则表达式， 可以使用正则表达式进行强大的模式匹配和文本检索与替换功能。 定义RegExp()构造函数来创建，或者采用直接量定义为包含在一对斜杠（‘/’）之间的字符，eg. let pattern = /s$/; (等同于 let pattern = new RegExp(‘s$’)) 直接量字符字符                 匹配字母和数字">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="http://lawlietcos.com/正则表达式.html">
+<meta property="og:site_name" content="&#x2F;&#x2F;:Anonymous Note">
+<meta property="og:description" content="补上正则表达式这一块拼图。 RegExp类 表示 正则表达式， 可以使用正则表达式进行强大的模式匹配和文本检索与替换功能。 定义RegExp()构造函数来创建，或者采用直接量定义为包含在一对斜杠（‘/’）之间的字符，eg. let pattern = /s$/; (等同于 let pattern = new RegExp(‘s$’)) 直接量字符字符                 匹配字母和数字">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-24T10:05:25.309Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式">
+<meta name="twitter:description" content="补上正则表达式这一块拼图。 RegExp类 表示 正则表达式， 可以使用正则表达式进行强大的模式匹配和文本检索与替换功能。 定义RegExp()构造函数来创建，或者采用直接量定义为包含在一对斜杠（‘/’）之间的字符，eg. let pattern = /s$/; (等同于 let pattern = new RegExp(‘s$’)) 直接量字符字符                 匹配字母和数字">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+    <title> 正则表达式 - //:Anonymous Note </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">//:Anonymous Note</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          正则表达式
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 24 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>补上正则表达式这一块拼图。</p>
+<p>RegExp类 表示 正则表达式， 可以使用正则表达式进行强大的模式匹配和文本检索与替换功能。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>RegExp()构造函数来创建，或者采用直接量定义为包含在一对斜杠（‘/’）之间的字符，eg. let pattern = /s$/; (等同于 let pattern = new RegExp(‘s$’))</p>
+<h4 id="直接量字符"><a href="#直接量字符" class="headerlink" title="直接量字符"></a>直接量字符</h4><p>字符                 匹配<br>字母和数字字符         自身<br>\n                   换行符<br>…</p>
+<p>[…]                方括号内的任意字符<br>[^…]               不在方括号内的任意字符<br>.                    除换行符和其他Unicode行终止符之外的任意字符<br>\w                   任何ASCII字符组成的单词，等价于[a-zA-Z0-9]<br>\W                   任何不是ASCII字符组成的单词，等价于[^a-zA-Z0-9]<br>\s                   任何Unicode空白符<br>\S                   任何非Unicode空白符的字符，注意\w和\S不同<br>\d                   等价于[0-9]<br>\D                   等价于[^0-9]<br>[\b]                 退格直接量(特例)</p>
+<p>重复字符语法<br>{n, m}               匹配前一项至少n次，但不能超过m次<br>{n, }                匹配前一项n次或者更多次<br>{n}                  匹配前一项n次<br>?                    匹配前一项0次或者1次，也就是说前一项是可选的，等价于{0, 1}<br>“+”                    匹配前一项1次或者多次，等价于{1, }<br>“*”                    匹配前一项0次或者多次，等价于{0, }</p>
+<p>以上是贪婪的匹配，如果是非贪婪的匹配，则需要每一个后面加一个?字符</p>
+<p>| 和 () 选择选项<br>()还有一点是可以抽取<br>eg. 如果要匹配左侧和右侧的引号，/([‘“])[^’”]*\1/     其中\1就代表第一个括号里的内容</p>
+<p>|                    选择，匹配的是该符号左边的子表达式或右边的子表达式<br>(…)                组合，将几个项组合为一个单元，这个单元可通过”*”,”+”等符号加以修饰，而且可以记住和这个组合相匹配的字符串以供此后的引用使用<br>(?:…)              只组合，把项组合到一个单元，但不记忆与该组相匹配的字符<br>\n                   和第n个分组第一次匹配的字符相匹配</p>
+<p>^                    匹配字符串的开头，在多行检索中，匹配一行的开头<br>$                    匹配字符串的结尾，在多行检索中，匹配一行的结果<br>\b                   匹配边界<br>\B                   匹配非单词边界的位置<br>(?=p)                零宽正向先行断言<br>(?!p)                零宽负向先行断言</p>
+<p>修饰符<br>i                    不区分大小写<br>g                    全局匹配<br>m                    多行匹配</p>
+<h3 id="String方法"><a href="#String方法" class="headerlink" title="String方法"></a>String方法</h3><p>String.search() 需要注意的是这会忽略正则表达式参数中的修饰符g，返回的是第一个与之匹配的index<br>String.replace()   注意  第二个参数  可以是之前匹配的单元  但是用$n表示<br>String.match()   设置了修饰符g，则返回所有匹配的数组；如果没有g，则不进行全局搜索，返回是一个数组，a[0]存放的是完整的匹配，a[1]存放的是与第一个圆括号匹配的子串，以此类推，a[n]存放的是$n的内容<br>String.split()</p>
+<h3 id="RegExp对象"><a href="#RegExp对象" class="headerlink" title="RegExp对象"></a>RegExp对象</h3><p>每个RegExp都有5个属性</p>
+<ul>
+<li>source</li>
+<li>global</li>
+<li>ignoreCase</li>
+<li>multiline</li>
+<li>lastIndex</li>
+</ul>
+<p>2个方法</p>
+<ul>
+<li>exec()</li>
+<li>test()</li>
+</ul>
+<blockquote>
+<p>参考 Javascript权威指南 第10章</p>
+</blockquote>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/js/">js</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/ni.html">
+        <span class="next-text nav-default">Ni</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+    2018
+    <span class="footer-author">lawliet & nier.</span>
+    <span class="power-by">
+        We can Fly.
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1"></script>
+
+  </body>
+</html>

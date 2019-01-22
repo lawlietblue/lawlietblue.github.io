@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="Angular-Modules">
+
+
+
+
+  <meta name="keywords" content="Angular,js,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="//:Anonymous Note">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1">
+
+
+
+<link rel="canonical" href="http://lawlietcos.com/angular-modules.html">
+
+
+<meta name="description" content="Module basicsAn ES6 module is a file containing JS code. There’s no special module keyword; a module mostly reads just like a script. There are two differences.  ES6 modules are automatically strict-m">
+<meta name="keywords" content="Angular,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular-Modules">
+<meta property="og:url" content="http://lawlietcos.com/angular-modules.html">
+<meta property="og:site_name" content="&#x2F;&#x2F;:Anonymous Note">
+<meta property="og:description" content="Module basicsAn ES6 module is a file containing JS code. There’s no special module keyword; a module mostly reads just like a script. There are two differences.  ES6 modules are automatically strict-m">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-22T10:37:07.492Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular-Modules">
+<meta name="twitter:description" content="Module basicsAn ES6 module is a file containing JS code. There’s no special module keyword; a module mostly reads just like a script. There are two differences.  ES6 modules are automatically strict-m">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+    <title> Angular-Modules - //:Anonymous Note </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">//:Anonymous Note</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Angular-Modules
+        
+      </h1>
+
+      <time class="post-time">
+          Jan 22 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h2 id="Module-basics"><a href="#Module-basics" class="headerlink" title="Module basics"></a>Module basics</h2><p>An ES6 module is a file containing JS code. There’s no special module keyword; a module mostly reads just like a script. There are two differences.</p>
+<ul>
+<li>ES6 modules are automatically strict-mode code, even if you don’t write “use strict”; in them.</li>
+<li>You can use import and export in modules.</li>
+</ul>
+<h3 id="export"><a href="#export" class="headerlink" title="export"></a>export</h3><p>Everything declared inside a module is local to the module, by default. If you want something declared in a module to be public, so that other modules can use it, you must export that feature. There are a few ways to do this. The simplest way is to add the export keyword.</p>
+<p>`<br>// kittydar.js - Find the locations of all the cats in an image.<br>// (Heather Arthur wrote this library for real)<br>// (but she didn’t use modules, because it was 2013)</p>
+<p>export function detectCats(canvas, options) {<br>  var kittydar = new Kittydar(options);<br>  return kittydar.detectCats(canvas);<br>}</p>
+<p>export class Kittydar {<br>  … several methods doing image processing …<br>}</p>
+<p>// This helper function isn’t exported.<br>function resizeCanvas() {<br>  …<br>}<br>…<br>`</p>
+<p>You can export any top-level function, class, var, let, or const.</p>
+<h3 id="Export-lists"><a href="#Export-lists" class="headerlink" title="Export lists"></a>Export lists</h3><p>Rather than tagging each exported feature, you can write out a single list of all the names you want to export,wrapped in curly braces:</p>
+<p>`<br>export {detectCats, Kittydar};</p>
+<p>// no export keyword required here<br>function detectCats(canvas, options) { … }<br>class Kittydar { … }<br>`</p>
+<h3 id="Renaming-imports-and-exports"><a href="#Renaming-imports-and-exports" class="headerlink" title="Renaming imports and exports"></a>Renaming imports and exports</h3><p>`// suburbia.js</p>
+<p>// Both these modules export something named <code>flip</code>.<br>// To import them both, we must rename at least one.<br>import {flip as flipOmelet} from “eggs.js”;<br>import {flip as flipHouse} from “real-estate.js”;<br>…<code></code>// unlicensed_nuclear_accelerator.js - media streaming without drm<br>// (not a real library, but maybe it should be)</p>
+<p>function v1() { … }<br>function v2() { … }</p>
+<p>export {<br>  v1 as streamV1,<br>  v2 as streamV2,<br>  v2 as streamLatestVersion<br>};`</p>
+<h3 id="Default-exports"><a href="#Default-exports" class="headerlink" title="Default exports"></a>Default exports</h3><p><code>import _ from &quot;lodash&quot;;</code><br>This shorthand is equivalent to import {default as _} from “lodash”;. All CommonJS and AMD modules are presented to ES6 as having a default export, which is the same thing that you would get if you asked require() for that module—that is, the exports object.</p>
+<p><code>let myObject = {
+  field1: value1,
+  field2: value2
+};
+export {myObject as default};</code></p>
+<p><code>export default {
+  field1: value1,
+  field2: value2
+};</code></p>
+<h3 id="Module-objects"><a href="#Module-objects" class="headerlink" title="Module objects"></a>Module objects</h3><p><code>import * as cows from &quot;cows&quot;;</code><br>When you import *, what’s imported is a module namespace object. Its properties are the module’s exports. So if the “cows” module exports a function named moo(), then after importing “cows” this way, you can write: cows.moo().</p>
+<h3 id="Aggregating-modules"><a href="#Aggregating-modules" class="headerlink" title="Aggregating modules"></a>Aggregating modules</h3><h2 id="Work-to-add-something-like-to-HTML-is-expected-to-follow"><a href="#Work-to-add-something-like-to-HTML-is-expected-to-follow" class="headerlink" title="Work to add something like  to HTML is expected to follow."></a>Work to add something like <script type="module"> to HTML is expected to follow.</h2><ul>
+<li><a href="https://hacks.mozilla.org/2015/08/es6-in-depth-modules/">ES6 in Depth: Moudles</a></li>
+</ul>
+<h2 id="NgModule-类与-JavaScript-模块有下列关键性的不同："><a href="#NgModule-类与-JavaScript-模块有下列关键性的不同：" class="headerlink" title="NgModule 类与 JavaScript 模块有下列关键性的不同："></a>NgModule 类与 JavaScript 模块有下列关键性的不同：</h2><ul>
+<li><p>Angular 模块只绑定了可声明的类，这些可声明的类只是供Angular 编译器用的。</p>
+</li>
+<li><p>与 JavaScript 类把它所有的成员类都放在一个巨型文件中不同，你要把该模块的类列在它的 @NgModule.declarations 列表中。</p>
+</li>
+<li><p>Angular 模块只能导出可声明的类。这可能是它自己拥有的也可能是从其它模块中导入的。它不会声明或导出任何其它类型的类。</p>
+</li>
+<li><p>与 JavaScript 模块不同，NgModule 可以通过把服务提供商加到 @NgModule.providers 列表中，来用服务扩展整个应用。</p>
+</li>
+</ul>
+<h3 id="NgModule-装饰器表明-AppModule-是一个-NgModule-类。-NgModule-获取一个元数据对象，它会告诉-Angular-如何编译和启动本应用。"><a href="#NgModule-装饰器表明-AppModule-是一个-NgModule-类。-NgModule-获取一个元数据对象，它会告诉-Angular-如何编译和启动本应用。" class="headerlink" title="@NgModule 装饰器表明 AppModule 是一个 NgModule 类。 @NgModule 获取一个元数据对象，它会告诉 Angular 如何编译和启动本应用。"></a>@NgModule 装饰器表明 AppModule 是一个 NgModule 类。 @NgModule 获取一个元数据对象，它会告诉 Angular 如何编译和启动本应用。</h3><ul>
+<li><p>declarations —— 该应用所拥有的组件。</p>
+</li>
+<li><p>imports —— 导入 BrowserModule 以获取浏览器特有的服务，比如 DOM 渲染、无害化处理和位置（location）。</p>
+</li>
+<li><p>providers —— 各种服务提供商。</p>
+</li>
+<li><p>bootstrap —— 根组件，Angular 创建它并插入 index.html 宿主页面。</p>
+</li>
+</ul>
+<p>每个可声明对象都只能属于一个模块，所以只能把它声明在一个 @NgModule 中。当你需要在其它模块中使用它时，就要在那里导入包含这个可声明对象的模块。</p>
+</script></h2>
+            </div>
+          
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/Angular/">Angular</a>
+          
+            <a href="/tags/js/">js</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/hey-2019.html">
+        <span class="next-text nav-default">Hey, 2019.</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2018 -
+    
+    2019
+    <span class="footer-author">lawliet & nier.</span>
+    <span class="power-by">
+        We can Fly.
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1"></script>
+
+  </body>
+</html>

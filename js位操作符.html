@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="js位操作符">
+
+
+
+
+  <meta name="keywords" content="js,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="//:Anonymous Note">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1">
+
+
+
+<link rel="canonical" href="http://lawlietcos.com/js位操作符.html">
+
+
+<meta name="description" content="js中所有数值都是以64位格式存储，但是位操作符不直接操作64位的值，而是先转换成32位的整数，然后执行操作，最后将结果转换成64位。   对于有符号的整数，32位中的前31位用于表示整数的值，第32位是用于表示数值的符号：0表示正数，1表示负数。   eg.18 === 10010   需要注意的是，负数以二进制码存储，但使用的格式是二进制补码。计算一个数值的二进制补码，需要以下三个步骤，">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js位操作符">
+<meta property="og:url" content="http://lawlietcos.com/js位操作符.html">
+<meta property="og:site_name" content="&#x2F;&#x2F;:Anonymous Note">
+<meta property="og:description" content="js中所有数值都是以64位格式存储，但是位操作符不直接操作64位的值，而是先转换成32位的整数，然后执行操作，最后将结果转换成64位。   对于有符号的整数，32位中的前31位用于表示整数的值，第32位是用于表示数值的符号：0表示正数，1表示负数。   eg.18 === 10010   需要注意的是，负数以二进制码存储，但使用的格式是二进制补码。计算一个数值的二进制补码，需要以下三个步骤，">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-18T11:09:45.782Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js位操作符">
+<meta name="twitter:description" content="js中所有数值都是以64位格式存储，但是位操作符不直接操作64位的值，而是先转换成32位的整数，然后执行操作，最后将结果转换成64位。   对于有符号的整数，32位中的前31位用于表示整数的值，第32位是用于表示数值的符号：0表示正数，1表示负数。   eg.18 === 10010   需要注意的是，负数以二进制码存储，但使用的格式是二进制补码。计算一个数值的二进制补码，需要以下三个步骤，">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+    <title> js位操作符 - //:Anonymous Note </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">//:Anonymous Note</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          js位操作符
+        
+      </h1>
+
+      <time class="post-time">
+          Feb 18 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>  js中所有数值都是以64位格式存储，但是位操作符不直接操作64位的值，而是先转换成32位的整数，然后执行操作，最后将结果转换成64位。</p>
+<p>  对于有符号的整数，32位中的前31位用于表示整数的值，第32位是用于表示数值的符号：0表示正数，1表示负数。</p>
+<p>  eg.18 === 10010</p>
+<p>  需要注意的是，负数以二进制码存储，但使用的格式是二进制补码。计算一个数值的二进制补码，需要以下三个步骤，</p>
+<ul>
+<li>先求这个数值绝对值的二进制码</li>
+<li>求二进制反码，即将0替换为1,将1替换为0</li>
+<li><p>得到的二进制反码加1</p>
+<p>-18：</p>
+</li>
+<li>18 === 00000000000000000000000000010010</li>
+<li>求其反码11111111111111111111111111101101</li>
+<li>加1    11111111111111111111111111101110</li>
+</ul>
+<p>ECMAScript 会把 -18 转换成 -10010</p>
+<p>运用位操作，有一个副作用，特殊的NaN和Infinity值会被当成0来处理。如果是非数值来应用位操作符，会先使用Number()函数再位操作。</p>
+<h1 id="按位非-NOT"><a href="#按位非-NOT" class="headerlink" title="按位非(NOT)"></a>按位非(NOT)</h1><p>由一个波浪线(~)表示，按位非操作的本质：操作数的负值减1： ～25 === -26</p>
+<h1 id="按位与-AND"><a href="#按位与-AND" class="headerlink" title="按位与(AND)"></a>按位与(AND)</h1><p>由一个和字符(&amp;)表示，按位与操作的本质，两个数值对应位都是1时才返回1,任何一位是0,结果都是0。所以将任一数值x与0执行按位与操作，其结果都是0。将任一数值x与-1执行按位与操作，其结果都是x。</p>
+<h1 id="按位或-OR"><a href="#按位或-OR" class="headerlink" title="按位或(OR)"></a>按位或(OR)</h1><p>由一个竖线符号(|)表示，按位或操作的本质，两个数值对应位都是0时才返回0,任何一位是1,结果都是1。所以将任一数值x与0执行按位或操作，其结果都是x。将任一数值x与-1执行按位或操作，其结果都是-1。</p>
+<h1 id="按位异或-XOR"><a href="#按位异或-XOR" class="headerlink" title="按位异或(XOR)"></a>按位异或(XOR)</h1><p>由一个插入符号(^)表示，只有一个1时才返回1,其余都返回0。将任一数值x与0进行异或操作，其结果都是x。将任一数值x与-1进行异或操作，其结果都是~x.</p>
+<h1 id="左移"><a href="#左移" class="headerlink" title="左移"></a>左移</h1><p>由两个小于号(&lt;&lt;)表示，将数值的所有位向左移动指定的位数，原数值空出来的空位用0来填充。x &lt;&lt; y实际上算出来的值为x * 2的y次方。注意左移不会影响操作数的符号位。</p>
+<h1 id="有符号的右移"><a href="#有符号的右移" class="headerlink" title="有符号的右移"></a>有符号的右移</h1><p>由两个大于号(&gt;&gt;)表示，会将数值向右移动，但保留符号位，用符号位的数值来填充所有空位。</p>
+<h1 id="无符号的右移"><a href="#无符号的右移" class="headerlink" title="无符号的右移"></a>无符号的右移</h1><p>由三个大于号(&gt;&gt;&gt;)表示，左边的空位由0来填充，而且会把负数当成正数的二进制，所以结果会非常大。</p>
+<ul>
+<li>右移x &gt;&gt; y结果是 x / (2的y次方)的向下取整。</li>
+</ul>
+<blockquote>
+<p>Javascript高级程序设计(第3版) 3.5操作符</p>
+</blockquote>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+        <div class="post-tags">
+          
+            <a href="/tags/js/">js</a>
+          
+        </div>
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/hey-2019-todo-list.html">
+        <span class="next-text nav-default">Hey, 2019, TODO LIST.</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2018 -
+    
+    2019
+    <span class="footer-author">lawliet & nier.</span>
+    <span class="power-by">
+        We can Fly.
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1"></script>
+
+  </body>
+</html>
